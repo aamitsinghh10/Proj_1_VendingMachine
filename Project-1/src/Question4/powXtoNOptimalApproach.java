@@ -24,7 +24,7 @@ public class powXtoNOptimalApproach {
 
         Scanner obj = new Scanner(System.in);
         System.out.println("Enter value of X:");
-        int x = obj.nextInt();
+        double x = obj.nextDouble();
 
         System.out.println("Enter value of N:");
         int n = obj.nextInt();
