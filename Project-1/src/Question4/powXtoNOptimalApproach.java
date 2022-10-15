@@ -3,7 +3,7 @@ package Question4;
 import java.util.Scanner;
 
 public class powXtoNOptimalApproach {
-    public static double PowXtoN(int x, int n){
+    public static double PowXtoN(double x, int n){
 
         if(x==0)
             return 0;
