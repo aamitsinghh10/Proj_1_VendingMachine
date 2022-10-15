@@ -13,8 +13,11 @@ public class powXtoNOptimalApproach {
         if(n%2==0){
             return temp*temp;
         }
-        else {
+        else if(n%2==1){
             return x*temp*temp;
+        }
+        else{
+            return 1/PowXtoN(x,-n);
         }
     }
     public static void main(String[] args){
