@@ -24,41 +24,32 @@ public class Main {
         });
 
         System.out.println("You can add 5 Items as Maximum in your Cart");
-        ArrayList<ItemRequest> itemReq = RequestItems(obj, inventoryList);
-        VendingMachine requestedItems = new VendingMachine(itemReq);
+        ArrayList<ItemRequest> itemRequest = RequestItems(obj, inventoryList);
+        VendingMachine requestedItems = new VendingMachine(itemRequest);
         ArrayList<Item> itemsToProvide = inventory.ItemsProvided(requestedItems);
 
-        System.out.println("Your Ordered Items which Served you are :");
-
-        double amountToPay = findTotalPrice(itemReq);
-        double totalPrice = PaymentMode(amountToPay, obj);
-
-        System.out.println("You have to Pay total Price : "+totalPrice);
-
+        System.out.println("Your Ordered Items which is to be Served");
         itemsToProvide.forEach((prod)->{
             System.out.println("{"+prod.getName()+"}");
         });
+        double costToPay = findTotalPrice(itemRequest);
+        double totalPrice = PaymentMode(costToPay, obj);
 
-        double costToPay = 0;
+        System.out.println("You have to Pay total Price : "+totalPrice);
+
+        double payment = 0;
         do{
-            costToPay = obj.nextDouble();
-            if(costToPay!=totalPrice){
+            payment = obj.nextDouble();
+            if(payment!=totalPrice){
                 System.out.println("Amount you are payment is not correct");
             }
-        }while(costToPay!=totalPrice);
+        }while(payment!=totalPrice);
 
         System.out.println("Your Paid the Amount Successfully");
         System.out.println("Thank You!");
     }
-    public static int[] fillingItems(HashMap<String, ArrayList<Item>> inventoryList, String[] ItemsList){
-        int[] arr = new int[5];
-
-        for(int i=0;i<5;i++){
-            arr[i] = inventoryList.get(ItemsList[i]).size();
-        }
-        return arr;
-    }
     public static ArrayList<ItemRequest> RequestItems(Scanner input, HashMap<String,ArrayList<Item>> inventoryList){
+
         int remainingItems = 5, quantity = 0,option =0;
 
         String[] itemsList = {NamePriceOfItem.Coke_name,NamePriceOfItem.Chips_name,NamePriceOfItem.MilkBrand_name, NamePriceOfItem.Juice_name, NamePriceOfItem.Chocolate_name};
@@ -67,6 +58,8 @@ public class Main {
         int[] countFuncOfItems = fillingItems(inventoryList,itemsList);
         do{
             System.out.println("Enter 1.Coke 2.Chips 3. Milk 4.Juice 5.Chocolate -1.Exit");
+            System.out.println("Your Selected Option having remaining Items left : "+remainingItems);
+            option = input.nextInt();
             boolean flag = true;
             if(option>5){
                 System.out.println("Select the valid Option which is mentioned Above:");
@@ -102,6 +95,14 @@ public class Main {
         return arr;
     }
 
+    private static int[] fillingItems(HashMap<String, ArrayList<Item>> inventoryList, String[] ItemsList){
+        int[] arr = new int[5];
+
+        for(int i=0;i<5;i++){
+            arr[i] = inventoryList.get(ItemsList[i]).size();
+        }
+        return arr;
+    }
     public static double findTotalPrice(ArrayList<ItemRequest> itemRequests){
         int amountToPay = 0;
         NamePriceOfItem price = new NamePriceOfItem();
